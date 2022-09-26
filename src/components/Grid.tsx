@@ -1,10 +1,25 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { selectIsRunning } from '../store/slices/gameSlice'
+import gameSlice, { Coord, Face, selectIsRunning } from '../store/slices/gameSlice'
 import Cell from './Cell'
 
-const Grid = ({ grid }: { grid: boolean[][] }) => {
+const Grid = ({ grid, face }: { grid: boolean[][], face: Face }) => {
+  const dispatch = useDispatch()
   const gameIsRunning = useSelector(selectIsRunning)
+  const handleCellClick = (coord: Coord) => {
+    if (grid[coord.y][coord.x]) {
+      dispatch(gameSlice.actions.killCell({
+        face,
+        coord
+      }))
+      return
+    }
+
+    dispatch(gameSlice.actions.reviveCell({
+      face,
+      coord
+    }))
+  }
 
   return (
     <Wrapper id="grid" width={grid[0].length} height={grid.length} isRunning={gameIsRunning} role="grid">
@@ -20,6 +35,7 @@ const Grid = ({ grid }: { grid: boolean[][] }) => {
                   gridHeight={grid.length}
                   isAlive={isAlive}
                   role="gridcell"
+                  onClick={() => handleCellClick({ x: colIndex, y: lineIndex })}
                 />
               )
             }

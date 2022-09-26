@@ -15,18 +15,18 @@ const Cube = ({ size }: { size: size }) => {
   return (
     <div>
       <CubeLine>
-        <Grid grid={cube.back} />
+        <Grid face="back" grid={cube.back} />
       </CubeLine>
       <CubeLine>
-        <Grid grid={cube.left} />
-        <Grid grid={cube.bot} />
-        <Grid grid={cube.right} />
+        <Grid face="left" grid={cube.left} />
+        <Grid face="bot" grid={cube.bot} />
+        <Grid face="right" grid={cube.right} />
       </CubeLine>
       <CubeLine>
-        <Grid grid={cube.front} />
+        <Grid face="front" grid={cube.front} />
       </CubeLine>
       <CubeLine>
-        <Grid grid={cube.top} />
+        <Grid face="top" grid={cube.top} />
       </CubeLine>
     </div>
   )

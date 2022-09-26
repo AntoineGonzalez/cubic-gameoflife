@@ -6,7 +6,7 @@ import Grid from '../../components/Grid'
 describe('components/Grid.tsx', () => {
   it('displays a representation of the grid passed as props', () => {
     const gridData = gridsFixtures.initial
-    render(wrapWithReduxProvider(<Grid grid={gridData} />))
+    render(wrapWithReduxProvider(<Grid face='top' grid={gridData} />))
 
     const grid = screen.getByRole('grid')
     const rows = within(grid).getAllByRole('row')

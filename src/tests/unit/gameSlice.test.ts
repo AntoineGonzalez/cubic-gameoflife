@@ -89,4 +89,81 @@ describe('store/slices/gameSlice', () => {
 
     expect(actual).toStrictEqual(expected)
   })
+
+  it('reduces the reviveCell action', () => {
+    const { actions, reducer } = gameSlice
+
+    const initialState = {
+      cube: {
+        top: gridsFixtures.initial,
+        bot: gridsFixtures.initial,
+        left: gridsFixtures.initial,
+        right: gridsFixtures.initial,
+        front: gridsFixtures.initial,
+        back: gridsFixtures.initial
+      },
+      isRunning: false,
+      iterationCounter: 0
+    }
+
+    const actual = reducer(
+      initialState,
+      actions.reviveCell({
+        face: 'back',
+        coord: { x: 1, y: 1 }
+      }))
+
+    const expected = {
+      ...initialState,
+      cube: {
+        top: gridsFixtures.initial,
+        bot: gridsFixtures.initial,
+        left: gridsFixtures.initial,
+        right: gridsFixtures.initial,
+        front: gridsFixtures.initial,
+        back: gridsFixtures.revivedCell
+      }
+    }
+
+    expect(actual).toStrictEqual(expected)
+  })
+
+  it('reduces the killCell action', () => {
+    const { actions, reducer } = gameSlice
+
+    const initialState = {
+      cube: {
+        top: gridsFixtures.revivedCell,
+        bot: gridsFixtures.initial,
+        left: gridsFixtures.initial,
+        right: gridsFixtures.initial,
+        front: gridsFixtures.initial,
+        back: gridsFixtures.initial
+      },
+      isRunning: false,
+      iterationCounter: 0,
+      selectedPattern: null
+    }
+
+    const actual = reducer(
+      initialState,
+      actions.killCell({
+        face: 'top',
+        coord: { x: 1, y: 1 }
+      }))
+
+    const expected = {
+      ...initialState,
+      cube: {
+        top: gridsFixtures.initial,
+        bot: gridsFixtures.initial,
+        left: gridsFixtures.initial,
+        right: gridsFixtures.initial,
+        front: gridsFixtures.initial,
+        back: gridsFixtures.initial
+      }
+    }
+
+    expect(actual).toStrictEqual(expected)
+  })
 })
